@@ -1,7 +1,15 @@
+import { motion as Motion } from "framer-motion";
+
 export default function SectionTitle({ title }) {
   return (
-    <h2 className="text-5xl font-bold text-center mb-14">
+    <Motion.h2
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="mb-14 text-center text-4xl font-bold tracking-tight md:text-5xl"
+    >
       {title}
-    </h2>
+    </Motion.h2>
   );
 }

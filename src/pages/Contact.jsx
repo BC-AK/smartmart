@@ -1,5 +1,7 @@
+import { motion as Motion } from "framer-motion";
 import { useState } from "react";
 import PageContainer from "../components/PageContainer";
+import Reveal from "../components/Reveal";
 import SectionTitle from "../components/SectionTitle";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -99,67 +101,75 @@ export default function Contact() {
       <SectionTitle title="Contact" />
 
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="rounded-3xl bg-stone-950 p-8 text-white shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-200">
-            Project Presentation
-          </p>
-          <h2 className="mt-6 text-3xl font-bold">
-            SmartMart AI academic and portfolio showcase
-          </h2>
-          <p className="mt-4 leading-8 text-stone-300">
-            This website presents the SmartMart AI project as a professional
-            concept for barcode-based supermarket inventory, expiry alert,
-            billing, and sales intelligence.
-          </p>
-        </section>
-
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-6 rounded-3xl border bg-white p-10 shadow-sm"
-        >
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full rounded-xl border p-4 focus:outline-none focus:ring-2 focus:ring-black"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full rounded-xl border p-4 focus:outline-none focus:ring-2 focus:ring-black"
-          />
-          <textarea
-            name="message"
-            placeholder="Project Discussion"
-            rows="5"
-            value={formData.message}
-            onChange={handleChange}
-            className="w-full rounded-xl border p-4 focus:outline-none focus:ring-2 focus:ring-black"
-          />
-          {status.message ? (
-            <p
-              className={
-                status.type === "success"
-                  ? "text-sm font-medium text-green-700"
-                  : "text-sm font-medium text-red-600"
-              }
-            >
-              {status.message}
+        <Reveal>
+          <section className="rounded-3xl bg-stone-950 p-8 text-white shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-200">
+              Project Presentation
             </p>
-          ) : null}
-          <button
-            type="submit"
-            disabled={isSending}
-            className="w-full rounded-xl bg-black py-4 text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:bg-stone-500"
+            <h2 className="mt-6 text-3xl font-bold">
+              SmartMart AI academic and portfolio showcase
+            </h2>
+            <p className="mt-4 leading-8 text-stone-300">
+              This website presents the SmartMart AI project as a professional
+              concept for barcode-based supermarket inventory, expiry alert,
+              billing, and sales intelligence.
+            </p>
+          </section>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-6 rounded-3xl border border-stone-200 bg-white p-10 shadow-sm"
           >
-            {isSending ? "Sending..." : "Send Message"}
-          </button>
-        </form>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-stone-200 p-4 transition duration-300 hover:border-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-stone-200 p-4 transition duration-300 hover:border-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900"
+            />
+            <textarea
+              name="message"
+              placeholder="Project Discussion"
+              rows="5"
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-stone-200 p-4 transition duration-300 hover:border-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900"
+            />
+            {status.message ? (
+              <Motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={
+                  status.type === "success"
+                    ? "text-sm font-medium text-green-700"
+                    : "text-sm font-medium text-red-600"
+                }
+              >
+                {status.message}
+              </Motion.p>
+            ) : null}
+            <Motion.button
+              type="submit"
+              disabled={isSending}
+              whileHover={{ y: -2, scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              className="w-full rounded-xl bg-stone-900 py-4 text-white shadow-lg shadow-stone-900/10 transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:bg-stone-500"
+            >
+              {isSending ? "Sending..." : "Send Message"}
+            </Motion.button>
+          </form>
+        </Reveal>
       </div>
     </PageContainer>
   );

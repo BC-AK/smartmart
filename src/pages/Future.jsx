@@ -1,4 +1,5 @@
 import PageContainer from "../components/PageContainer";
+import Reveal from "../components/Reveal";
 import SectionTitle from "../components/SectionTitle";
 
 const enhancements = [
@@ -15,12 +16,14 @@ export default function Future() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {enhancements.map((item, index) => (
-          <article key={item} className="rounded-3xl border bg-white p-8 shadow-sm">
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gray-500">
-              Future Scope {index + 1}
-            </p>
-            <p className="mt-4 text-xl font-semibold leading-8 text-slate-900">{item}</p>
-          </article>
+          <Reveal key={item} delay={0.08 * index}>
+            <article className="rounded-3xl border border-stone-200 bg-white p-8 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gray-500">
+                Future Scope {index + 1}
+              </p>
+              <p className="mt-4 text-xl font-semibold leading-8 text-slate-900">{item}</p>
+            </article>
+          </Reveal>
         ))}
       </div>
     </PageContainer>
