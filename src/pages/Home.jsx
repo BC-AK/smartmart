@@ -1,4 +1,5 @@
-import { motion as Motion } from "framer-motion";
+import { motion as Motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import {
   BarChart3,
   BellRing,
@@ -9,7 +10,10 @@ import {
   Target,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import whoWeAreImage from "../assets/images/smartmartpic.png";
+import barcodeImage from "../assets/images/barcode.png";
+import billingImage from "../assets/images/billing.png";
+import expiryImage from "../assets/images/expiry.png";
+import inventoryImage from "../assets/images/inventory.png";
 import PageContainer from "../components/PageContainer";
 import PrimaryButton from "../components/PrimaryButton";
 import Reveal from "../components/Reveal";
@@ -57,7 +61,7 @@ const foundationCards = [
     description:
       "To shape a future where supermarket operations are smarter, faster, and guided by clear real-time visibility.",
     quote: "\"A smarter store starts with clearer visibility.\"",
-    style: "bg-white text-slate-900 border-stone-200",
+    style: "bg-amber-50 text-slate-900 border-amber-200",
     quoteStyle: "text-amber-700",
   },
   {
@@ -66,23 +70,35 @@ const foundationCards = [
     description:
       "We value accuracy, usability, trust, and systems that genuinely help teams perform everyday retail tasks better.",
     quote: "\"Reliable systems create confident teams.\"",
-    style: "bg-amber-50 text-slate-900 border-amber-200",
+    style:  "bg-white text-slate-900 border-stone-200",
     quoteStyle: "text-amber-800",
   },
 ];
 
+const heroImages = [barcodeImage, inventoryImage, billingImage, expiryImage];
+
 export default function Home() {
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroIndex((current) => (current + 1) % heroImages.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <PageContainer>
       <section className="grid items-center gap-8 rounded-[2rem] border border-stone-200 bg-white p-8 shadow-sm lg:grid-cols-[0.95fr_1.05fr]">
         <Reveal>
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-700">
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-wide text-amber-700 font-serif">
               Who We Are
-            </p>
-            <h1 className="mt-4 text-4xl font-bold leading-tight text-slate-900 md:text-5xl">
-              SmartMart AI is built to make retail workflows smarter and more manageable
             </h1>
+            <h2 className="mt-4 text-4xl font-bold leading-tight text-slate-900 md:text-5xl">
+              SmartMart AI is built to make retail workflows smarter and more manageable
+            </h2>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-gray-600">
               We are creating a practical smart-retail platform for supermarkets
               that need better speed, accuracy, and visibility. SmartMart AI
@@ -121,36 +137,55 @@ export default function Home() {
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             />
 
-            <Motion.img
-              src={whoWeAreImage}
-              alt="SmartMart AI team collaboration illustration"
-              className="relative z-10 w-full rounded-[1.75rem] border border-stone-200 bg-white/80 p-3 shadow-sm"
-              animate={{ y: [0, -8, 0], scale: [1, 1.02, 1] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              whileHover={{ y: -6 }}
-            />
+            <div className="relative z-10 w-full overflow-hidden rounded-[1.75rem] border border-stone-200 bg-white/80 shadow-sm">
+              <div className="relative flex min-h-[520px] items-center justify-center p-6">
+                <AnimatePresence mode="wait">
+                  <Motion.img
+                    key={heroIndex}
+                    src={heroImages[heroIndex]}
+                    alt={`SmartMart hero slide ${heroIndex + 1}`}
+                    className="w-full max-h-[400px] object-contain"
+                    initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -20, scale: 0.98 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  />
+                </AnimatePresence>
 
-            <Motion.div
-              className="absolute right-6 top-6 z-20 rounded-3xl border border-white/60 bg-white/85 px-4 py-3 shadow-lg backdrop-blur"
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-700">
-                Team Focus
-              </p>
-              <p className="mt-2 text-sm text-gray-600">Inventory + expiry + billing</p>
-            </Motion.div>
+                <Motion.div
+                  className="absolute right-6 top-6 z-20 rounded-3xl border border-white/60 bg-white/85 px-4 py-3 shadow-lg backdrop-blur"
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-700">
+                    Team Focus
+                  </p>
+                  <p className="mt-2 text-sm text-gray-600">Inventory + expiry + billing</p>
+                </Motion.div>
 
-            <Motion.div
-              className="absolute bottom-6 left-6 z-20 rounded-3xl border border-stone-200 bg-white/92 px-4 py-3 shadow-lg"
-              animate={{ x: [0, 8, 0], y: [0, -4, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
-                Retail Flow
-              </p>
-              <p className="mt-2 text-lg font-bold text-slate-900">Practical store automation</p>
-            </Motion.div>
+                <Motion.div
+                  className="absolute bottom-14 left-6 z-20 rounded-3xl border border-stone-200 bg-white/92 px-4 py-3 shadow-lg"
+                  animate={{ x: [0, 8, 0], y: [0, -4, 0] }}
+                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+                    Retail Flow
+                  </p>
+                  <p className="mt-2 text-lg font-bold text-slate-900">Practical store automation</p>
+                </Motion.div>
+              </div>
+
+              <div className="flex justify-center gap-2 pb-5">
+                {heroImages.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`h-2.5 w-2.5 rounded-full transition ${
+                      idx === heroIndex ? "bg-amber-600" : "bg-stone-300"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </Reveal>
       </section>
@@ -197,9 +232,9 @@ export default function Home() {
       <section className="mt-16">
         <Reveal>
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-700">
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-wide text-amber-700 font-serif">
               Our Services
-            </p>
+            </h1>
             <h2 className="mt-4 text-4xl font-bold text-slate-900">
               What SmartMart AI Delivers
             </h2>
@@ -214,8 +249,8 @@ export default function Home() {
               <Reveal key={card.title} delay={0.08 * index} className="h-full">
                 <Motion.article
                   whileHover={{ y: -10, scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 220, damping: 20 }}
-                  className="flex h-full flex-col rounded-[1.8rem] border border-stone-200 bg-white p-7 shadow-sm transition duration-300 hover:border-stone-300 hover:shadow-xl"
+                  transition={{ duration: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex h-full flex-col rounded-[1.8rem] border border-stone-200 bg-white p-7 shadow-sm transition duration-100 hover:border-stone-300 hover:shadow-xl"
                 >
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-stone-950 text-white shadow-sm">
                     <Icon className="h-5 w-5" />
@@ -232,9 +267,9 @@ export default function Home() {
       <section className="mt-20">
         <Reveal>
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-700">
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-wide text-amber-700 font-serif">
               Our Foundation
-            </p>
+            </h1>
             <h2 className="mt-4 text-4xl font-bold text-slate-900">
               The ideas that guide SmartMart AI
             </h2>

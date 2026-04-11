@@ -3,17 +3,17 @@ import {
   ArrowRight,
   Boxes,
   CheckCircle2,
-  Flag,
   Lightbulb,
   ScanLine,
   ShieldCheck,
-  Sparkles,
-  Target,
   Users,
 } from "lucide-react";
 
 import aboutPlatformImage from "../assets/images/about.png";
-import smartmartScene from "../assets/images/smartmartpic.png"; // ✅ REQUIRED
+import aboutPicOne from "../assets/images/about_pic1.png";
+import aboutPicTwo from "../assets/images/about_pic2.png";
+import aboutPicThree from "../assets/images/about_pic3.png";
+import aboutPicFour from "../assets/images/about_pic4.png";
 
 import PageContainer from "../components/PageContainer";
 import Reveal from "../components/Reveal";
@@ -66,19 +66,40 @@ const capabilities = [
   },
 ];
 
+const sectionTwoImages = [
+  {
+    src: aboutPicOne,
+    alt: "Retail operations presentation view",
+    title: "Retail Operations",
+  },
+  {
+    src: aboutPicTwo,
+    alt: "Inventory and workflow presentation view",
+    title: "Inventory Workflow",
+  },
+  {
+    src: aboutPicThree,
+    alt: "SmartMart AI project display",
+    title: "Smart Display",
+  },
+  {
+    src: aboutPicFour,
+    alt: "Supermarket technology showcase",
+    title: "Store Intelligence",
+  },
+];
+
 export default function About() {
   return (
     <PageContainer>
       <div className="space-y-20">
-
         {/* SECTION 1 */}
         <Reveal>
           <section className="grid items-center gap-8 lg:grid-cols-[1.02fr_0.98fr]">
             <div>
-              <div className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.26em] text-amber-700">
-                <Sparkles className="h-4 w-4" />
+              <h1 className="text-5xl font-extrabold tracking-wide text-amber-700 font-serif md:text-6xl">
                 About Our Platform
-              </div>
+              </h1>
 
               <h1 className="mt-5 max-w-2xl text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
                 SmartMart AI brings supermarket operations into one smarter flow
@@ -92,23 +113,44 @@ export default function About() {
 
               <div className="mt-8 space-y-4">
                 {platformPoints.map((point) => (
-                  <div
+                  <Motion.div
                     key={point}
-                    className="flex items-start gap-3 rounded-2xl border border-stone-200 bg-white px-5 py-4 shadow-sm"
+                    whileHover={{ x: 8, y: -3, scale: 1.01 }}
+                    transition={{ duration: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                    className="group flex items-start gap-3 rounded-2xl border border-stone-200 bg-white px-5 py-4 shadow-sm transition duration-100 hover:border-amber-300 hover:bg-amber-50/80 hover:shadow-md"
                   >
-                    <CheckCircle2 className="mt-1 h-5 w-5 text-amber-600" />
-                    <p className="text-gray-700">{point}</p>
-                  </div>
+                    <CheckCircle2 className="mt-1 h-5 w-5 text-amber-600 transition duration-100 group-hover:scale-110 group-hover:text-amber-700" />
+                    <p className="text-gray-700 transition duration-100 group-hover:text-slate-900">
+                      {point}
+                    </p>
+                  </Motion.div>
                 ))}
               </div>
             </div>
 
-            <div className="relative min-h-[420px]">
-              <Motion.img
-                src={aboutPlatformImage}
-                alt="About"
-                className="w-full h-full object-cover rounded-2xl"
+            <div className="relative min-h-[420px] overflow-hidden rounded-[2rem] border border-stone-200 bg-gradient-to-br from-white via-slate-50 to-amber-50 p-4 shadow-[0_28px_70px_-40px_rgba(17,78,122,0.4)]">
+              <Motion.div
+                className="absolute -left-10 top-10 h-32 w-32 rounded-full bg-amber-300/30 blur-3xl"
+                animate={{ x: [0, 14, 0], y: [0, -10, 0] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
               />
+              <Motion.div
+                className="absolute -right-8 bottom-8 h-36 w-36 rounded-full bg-sky-200/40 blur-3xl"
+                animate={{ x: [0, -12, 0], y: [0, 10, 0] }}
+                transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+              />
+
+              <div className="relative min-h-[388px] overflow-hidden rounded-[1.6rem] border border-white/70 bg-white/70 shadow-sm backdrop-blur-sm">
+                <Motion.img
+                  src={aboutPlatformImage}
+                  alt="About platform overview"
+                  className="h-full w-full object-cover"
+                  animate={{ scale: [1, 1.03, 1], y: [0, -8, 0] }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/20 via-transparent to-white/10" />
+              </div>
+
             </div>
           </section>
         </Reveal>
@@ -117,27 +159,41 @@ export default function About() {
         <Reveal delay={0.05}>
           <section className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">
             <div className="text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-amber-700">
+              <h1 className="text-5xl font-extrabold tracking-wide text-amber-700 font-serif md:text-6xl">
                 About Smartmart-ai
-              </p>
+              </h1>
 
               <h2 className="mt-4 text-4xl font-bold text-slate-900">
                 A smart retail concept built around real store needs
               </h2>
 
-              <p className="mt-5 text-lg text-gray-600 max-w-3xl mx-auto">
+              <p className="mx-auto mt-5 max-w-3xl text-lg text-gray-600">
                 Smartmart-ai focuses on making supermarket workflows more
                 accurate, more responsive, and easier to manage.
               </p>
             </div>
 
-            {/* IMAGE */}
-            <div className="mt-10 overflow-hidden rounded-2xl border bg-gradient-to-br from-slate-900 to-amber-900 p-4">
-              <Motion.img
-                src={smartmartScene}
-                alt="Smartmart"
-                className="w-full max-w-5xl mx-auto object-contain rounded-xl"
-              />
+            <div className="mt-10 overflow-hidden rounded-2xl border border-stone-200 bg-slate-50 py-5 shadow-sm">
+              <div className="about-image-slider-track flex w-max gap-5">
+                {[...sectionTwoImages, ...sectionTwoImages].map((image, index) => (
+                  <div
+                    key={`${image.title}-${index}`}
+                    className="w-[280px] shrink-0 overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm sm:w-[360px] lg:w-[460px]"
+                  >
+                    <div className="aspect-[16/10] overflow-hidden bg-stone-100">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between px-5 py-4">
+                      <p className="font-bold text-slate-900">{image.title}</p>
+                      <span className="h-2.5 w-2.5 rounded-full bg-amber-500" />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         </Reveal>
@@ -146,9 +202,9 @@ export default function About() {
         <Reveal delay={0.1}>
           <section>
             <div className="text-center">
-              <p className="text-sm font-semibold uppercase text-amber-700">
+              <h1 className="text-5xl font-extrabold tracking-wide text-amber-700 font-serif md:text-6xl">
                 Our Story
-              </p>
+              </h1>
 
               <h2 className="mt-4 text-4xl font-bold text-slate-900">
                 From everyday supermarket problems to a smarter platform idea
@@ -159,8 +215,9 @@ export default function About() {
               {storySteps.map((step, index) => (
                 <Motion.div
                   key={index}
-                  whileHover={{ y: -8 }}
-                  className="p-6 border rounded-2xl bg-white shadow-sm"
+                  whileHover={{ y: -10, scale: 1.01 }}
+                  transition={{ duration: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  className="rounded-2xl border border-stone-200 bg-white p-6 shadow-md shadow-stone-200/60 transition duration-100 hover:border-amber-300 hover:shadow-xl hover:shadow-amber-100/60"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-stone-900 text-xl font-bold text-white">
                     {index + 1}
@@ -181,29 +238,31 @@ export default function About() {
         {/* SECTION 4 */}
         <Reveal delay={0.14}>
           <section className="rounded-2xl border bg-white p-8">
-            <h2 className="text-3xl font-bold text-slate-900">
+            <h1 className="text-5xl font-extrabold tracking-wide text-amber-700 font-serif md:text-6xl">
               What We Do
-            </h2>
+            </h1>
 
             <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               {capabilities.map((item, i) => {
                 const Icon = item.icon;
                 return (
-                  <div
+                  <Motion.div
                     key={i}
-                    className="p-6 border rounded-2xl bg-gray-50"
+                    whileHover={{ y: -8, scale: 1.01 }}
+                    transition={{ duration: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                    className="group rounded-2xl border border-stone-200 bg-gray-50 p-6 shadow-md shadow-stone-200/40 transition duration-100 hover:border-amber-300 hover:bg-white hover:shadow-xl hover:shadow-amber-100/60"
                   >
-                    <Icon className="h-6 w-6 text-stone-900" />
+                    <Icon className="h-6 w-6 text-stone-900 transition duration-100 group-hover:scale-110 group-hover:text-amber-700" />
                     <h3 className="mt-3 font-bold">{item.title}</h3>
-                    <p className="text-gray-600 text-sm mt-2">
+                    <p className="mt-2 text-sm text-gray-600">
                       {item.description}
                     </p>
-                  </div>
+                  </Motion.div>
                 );
               })}
             </div>
 
-            <div className="mt-8 p-4 bg-amber-50 rounded-xl flex gap-3">
+            <div className="mt-8 flex gap-3 rounded-xl bg-amber-50 p-4">
               <Lightbulb className="text-amber-700" />
               <p className="text-sm text-amber-900">
                 SmartMart AI is about creating a smarter supermarket experience.
@@ -211,7 +270,6 @@ export default function About() {
             </div>
           </section>
         </Reveal>
-
       </div>
     </PageContainer>
   );

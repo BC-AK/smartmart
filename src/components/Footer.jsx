@@ -1,51 +1,86 @@
-import { motion as Motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import projectLogo from "../assets/images/icon.png";
 
 export default function Footer() {
   return (
-    <footer className="mt-20 border-t border-stone-200/80 bg-gradient-to-br from-stone-950 via-stone-900 to-slate-900 text-white">
-      <div className="mx-auto grid max-w-7xl gap-10 px-8 py-14 md:grid-cols-[1.2fr_0.9fr_0.9fr] md:px-10 md:py-16">
-        <Motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 220, damping: 20 }}>
-          <div className="flex items-center gap-4">
-            <span className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-white/70 bg-white shadow-[0_22px_50px_-30px_rgba(134,215,233,0.85)]">
-              <img
-                src={projectLogo}
-                alt="SmartMart AI logo"
-                className="h-full w-full object-cover"
-              />
-            </span>
-            <div>
-              <h3 className="text-3xl font-bold">SmartMart AI</h3>
-              <p className="mt-2 text-sm uppercase tracking-[0.24em] text-sky-200">
-                Smarter Retail Flow
-              </p>
-            </div>
+    <footer className="mt-20 border-t border-amber-200/10 bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950 px-8 py-12 text-stone-300">
+      <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-3">
+        <div>
+          <div className="mb-4 flex items-center gap-3">
+            <img
+              src={projectLogo}
+              alt="SmartMart Logo"
+              className="h-10 w-10 rounded-full border border-white/10 bg-white/90 p-1 shadow-sm"
+            />
+            <h2 className="text-2xl font-bold text-white">
+              Smart<span className="text-amber-400">Mart AI</span>
+            </h2>
           </div>
-          <p className="mt-5 max-w-sm text-base leading-7 text-gray-400">
-            Barcode-based supermarket inventory, expiry alert, billing and
-            sales management system.
-          </p>
-        </Motion.div>
 
-        <Motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 220, damping: 20 }}>
-          <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-300">
-            Project Focus
-          </h4>
-          <p className="mt-4 text-base leading-7 text-gray-400">
-            Inventory intelligence, expiry control, billing automation, and
-            actionable reporting for smart retail operations.
+          <p className="text-sm leading-relaxed text-stone-300/90">
+            SmartMart AI is an intelligent retail platform designed to streamline
+            supermarket operations through automation and data-driven insights.
+            From inventory tracking to billing and expiry alerts, it empowers
+            retailers to operate efficiently and make smarter decisions.
           </p>
-        </Motion.div>
+        </div>
 
-        <Motion.div whileHover={{ y: -6 }} transition={{ type: "spring", stiffness: 220, damping: 20 }}>
-          <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-300">
-            Contact
-          </h4>
-          <p className="mt-4 text-base leading-7 text-gray-400">
-            Academic project presentation for SmartMart AI
+        <div>
+          <h3 className="mb-4 text-lg font-semibold tracking-wide text-amber-300">
+            QUICK LINKS
+          </h3>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link to="/" className="cursor-pointer transition duration-150 hover:text-amber-200">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/about" className="cursor-pointer transition duration-150 hover:text-amber-200">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="cursor-pointer transition duration-150 hover:text-amber-200">
+                Contact Us
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="mb-4 text-lg font-semibold tracking-wide text-amber-300">
+            CONTACT
+          </h3>
+          <p className="mb-2 text-sm text-stone-200">SMARTMART AI SOLUTIONS</p>
+          <p className="mb-2 text-sm">
+            Email: <span className="underline">info@smartmartai.com</span>
           </p>
-          <p className="mt-3 text-base text-gray-400">&copy; 2026 SmartMart AI</p>
-        </Motion.div>
+          <p className="mb-2 text-sm">Phone: +91 9876543210</p>
+          <p className="text-sm">Office Address: Chennai, Tamil Nadu, India</p>
+        </div>
+      </div>
+
+      <div className="mt-10 flex flex-col justify-between border-t border-white/10 pt-4 text-sm text-stone-400 md:flex-row">
+        <p>&copy; 2026 SmartMart AI. All rights reserved.</p>
+
+        <div className="mt-2 flex gap-4 md:mt-0">
+          <button type="button" className="cursor-pointer transition duration-150 hover:text-amber-200">
+            Privacy Policy
+          </button>
+          <span>|</span>
+          <button type="button" className="cursor-pointer transition duration-150 hover:text-amber-200">
+            Terms
+          </button>
+          <span>|</span>
+          <button
+            type="button"
+            className="cursor-pointer transition duration-150 hover:text-amber-200"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Back to top
+          </button>
+        </div>
       </div>
     </footer>
   );

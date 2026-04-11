@@ -107,3 +107,22 @@
     border-radius: 999px;
   }
 }
+
+@keyframes aboutSliderMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.625rem));
+  }
+}
+
+.about-image-slider-track {
+  animation: aboutSliderMarquee 28s linear infinite;
+  will-change: transform;
+}
+
+.about-image-slider-track:hover {
+  animation-play-state: paused;
+}
